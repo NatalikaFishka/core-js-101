@@ -59,13 +59,12 @@ function isLeapYear(date) {
   const year = date.getFullYear();
   if (year % 4 !== 0) {
     return false;
-  } else if (year % 100 !== 0) {
+  } if (year % 100 !== 0) {
     return true;
-  } else if (year % 400 !== 0) {
+  } if (year % 400 !== 0) {
     return false;
-  } else {
-    return true;
   }
+  return true;
 }
 
 
@@ -88,15 +87,14 @@ function timeSpanToString(startDate, endDate) {
   const getHours = endDate.getHours() - startDate.getHours();
   const getMin = endDate.getMinutes() - startDate.getMinutes();
   const getSec = (endDate.getSeconds() - startDate.getSeconds());
-  const forMS = (endDate.getMilliseconds() - startDate.getMilliseconds()).toString()
-  const getMilSec = forMS + '00';
+  const forMS = (endDate.getMilliseconds() - startDate.getMilliseconds()).toString();
+  const getMilSec = `${forMS}00`;
   const combi = [getHours, getMin, getSec];
   const stringArr = combi.map((curr) => {
     if (Math.floor(curr) < 10) {
-      return '0' + curr;
-    } else {
-      return curr;
+      return `0${curr}`;
     }
+    return curr;
   });
   return `${stringArr[0]}:${stringArr[1]}:${stringArr[2]}.${getMilSec.substr(0, 3)}`;
 }
@@ -119,11 +117,16 @@ function timeSpanToString(startDate, endDate) {
 function angleBetweenClockHands(date) {
   let hours = date.getUTCHours();
   const min = date.getUTCMinutes();
-  (hours > 12) ? hours -= 12 : hours;
+  if (hours > 12) {
+    hours -= 12;
+  }
   const hourAngle = (60 * hours + min) / 2;
   const minAngle = 6 * min;
   let result = Math.abs(hourAngle - minAngle);
-  return (result > 180) ? Math.PI * (result -= 180) / 180 : Math.PI * result / 180;
+  if (result > 180) {
+    result -= 180;
+  }
+  return (Math.PI * result) / 180;
 }
 
 module.exports = {

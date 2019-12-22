@@ -28,8 +28,16 @@
  *      .catch((error) => console.log(error.message)) // 'Error: Wrong parameter is passed!
  *                                                    //  Ask her again.';
  */
-function willYouMarryMe(/* isPositiveAnswer */) {
-  throw new Error('Not implemented');
+function willYouMarryMe(isPositiveAnswer) {
+  return new Promise(((resolve, reject) => {
+    if (typeof isPositiveAnswer !== 'boolean') {
+      reject(new Error('Wrong parameter is passed! Ask her again.'));
+    } else if (!isPositiveAnswer) {
+      resolve('Oh no, she said "No".');
+    } else {
+      resolve('Hooray!!! She said "Yes"!');
+    }
+  }));
 }
 
 
@@ -48,8 +56,15 @@ function willYouMarryMe(/* isPositiveAnswer */) {
  *    })
  *
  */
-function processAllPromises(/* array */) {
-  throw new Error('Not implemented');
+function processAllPromises(array) {
+  return new Promise(((resolve, reject) => {
+    const finArray = [];
+    array.forEach((curr) => {
+      curr.then(((value) => finArray.push(value)));
+    });
+    resolve(finArray);
+    reject(new Error('Error'));
+  }));
 }
 
 /**

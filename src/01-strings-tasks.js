@@ -241,20 +241,20 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-  let template = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const template = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
   let result = '';
   for (let i = 0; i < str.length; i += 1) {
-    let letterIndex = template.indexOf(str[i]);
+    const letterIndex = template.indexOf(str[i]);
     let lookIndex;
 
     if (letterIndex === -1) {
       result += str[i];
-    } else if (letterIndex > 12 && letterIndex <= 25 || letterIndex > 38) {
+    } else if ((letterIndex > 12 && letterIndex <= 25) || letterIndex > 38) {
       lookIndex = letterIndex - 13;
-      result += template[lookIndex]
-    } else if (letterIndex <= 12 || letterIndex > 25 && letterIndex <= 38) {
+      result += template[lookIndex];
+    } else if ((letterIndex <= 12 || letterIndex > 25) && letterIndex <= 38) {
       lookIndex = letterIndex + 13;
-      result += template[lookIndex]
+      result += template[lookIndex];
     }
   }
   return result;
@@ -306,7 +306,7 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-  let template = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣', 'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦', 'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥', 'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠']
+  const template = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣', 'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦', 'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥', 'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];
   return template.indexOf(value);
 }
 
